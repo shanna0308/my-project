@@ -1,0 +1,34 @@
+---
+title: "WEEK4"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 4-1
+```{R}
+x <- 1+1   #assignment
+x
+#一般程式語言，'='assignment，在R裡面'<-'
+```
+* **git hint:**  
+1. click to **add**
+1. commit+message
+1. push
+
+* **網站連結:**  
+[高雄科技大學首頁](https://www.nkust.edu.tw/)  
+
+***
+
+## 4-2
+
+
+
+
+
+
+
+
