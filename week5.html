@@ -125,17 +125,54 @@ $(document).ready(function () {
 </div>
 
 
-<div id="week-5" class="section level1">
-<h1>week 5</h1>
+<div class="section level1">
+<h1>基本</h1>
 <pre class="r"><code>x &lt;- 3
 x1 &lt;- c(1,2.3)
 x2 &lt;- c(TRUE,FALSE,TRUE)</code></pre>
-<pre class="r"><code>x</code></pre>
-<pre><code>## [1] 3</code></pre>
-<pre class="r"><code>x1</code></pre>
-<pre><code>## [1] 1.0 2.3</code></pre>
-<pre class="r"><code>x2</code></pre>
-<pre><code>## [1]  TRUE FALSE  TRUE</code></pre>
+<div class="section level2">
+<h2>統計量</h2>
+<p>x &lt;- c(2,3,4,5,6,7,8,9)<br />
+c是一個函數，用來形成一個向量變數</p>
+<ol style="list-style-type: decimal">
+<li>length():長度<br />
+</li>
+<li>mean() :平均數<br />
+</li>
+<li>median():中位數<br />
+</li>
+<li>quantile()<br />
+</li>
+<li>var():變異數<br />
+</li>
+<li>sd():標準差<br />
+</li>
+<li>range()<br />
+</li>
+<li>min()、max()</li>
+</ol>
+<pre class="r"><code>y &lt;- runif(40)
+
+length(y)</code></pre>
+<pre><code>## [1] 40</code></pre>
+<pre class="r"><code>mean(y)</code></pre>
+<pre><code>## [1] 0.4809804</code></pre>
+<pre class="r"><code>median(y)</code></pre>
+<pre><code>## [1] 0.5730741</code></pre>
+<pre class="r"><code>quantile(y)</code></pre>
+<pre><code>##         0%        25%        50%        75%       100% 
+## 0.02468668 0.16713345 0.57307413 0.71760544 0.99519034</code></pre>
+<pre class="r"><code>var(y)</code></pre>
+<pre><code>## [1] 0.09803365</code></pre>
+<pre class="r"><code>sd(y)</code></pre>
+<pre><code>## [1] 0.3131033</code></pre>
+<pre class="r"><code>range(y)</code></pre>
+<pre><code>## [1] 0.02468668 0.99519034</code></pre>
+<pre class="r"><code>min(y)</code></pre>
+<pre><code>## [1] 0.02468668</code></pre>
+<pre class="r"><code>max(y)</code></pre>
+<pre><code>## [1] 0.9951903</code></pre>
+</div>
 </div>
 
 

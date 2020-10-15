@@ -14,15 +14,32 @@ x1 <- c(1,2.3)
 x2 <- c(TRUE,FALSE,TRUE)
 ```
 
-```{r}
-x
-```
+## 統計量
+x <- c(2,3,4,5,6,7,8,9)  
+c是一個函數，用來形成一個向量變數
+
+1. length():長度  
+1. mean() :平均數  
+1. median():中位數  
+1. quantile()  
+1. var():變異數       
+1. sd():標準差  
+1. range()  
+1. min()、max()  
+
 
 ```{r}
-x1
+y <- runif(40)
+
+length(y)
+mean(y)
+median(y)
+quantile(y)
+var(y)
+sd(y)
+range(y)
+min(y)
+max(y)
 ```
 
-```{r}
-x2
-```
 
