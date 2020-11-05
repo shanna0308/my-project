@@ -1,0 +1,125 @@
+---
+title: "Week8"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## week_8
+
+x <- c(1,2,3)
+names(x) <- c("a","b","c")  #命名
+x
+x["a"]    #標跟值
+x[["a"]]  #拿出值(真正能做加減乘除)
+
+x <- matrix(runif(9),nrow=3)
+names(x) <- c("a","b","c")  #只命名了3個
+x["a"]
+x[["a"]]
+
+x <- matrix(runif(9),nrow=3)
+rownames(x) <- c("a","b","c")
+colnames(x) <- c("x","y","z")  
+
+#列欄都必須列，裏面數字才能計算(通常不會給矩陣名稱)
+
+x["a","x"] #值內容
+
+#矩陣運算
+c1 <- c(1,2,3)
+c2 <- c(4,5,6)
+c3 <- c(3,2)           #最後重複，變成3、2、3
+m1 <- cbind(c1,c2,c3)  #columebind欄位合併
+
+##矩陣轉置
+t(m1)
+
+m1[1,"c1"]
+
+##反矩陣，可使用solve()
+##矩陣相乘，使用%*%得到單位矩陣，等同於"反矩陣"(用solve較快)
+m1%*%solve(m1)
+
+b <- c(5,9,52)
+solve(m1,b)
+
+##矩陣合併
+v1 <- c(1,2,3)
+v2 <- list(1,2,3)
+z <- cbind(v1,v2)
+
+typeof(v1)
+typeof(v2)
+typeof(z)
+
+vvv <- unlist(z) #將list內容拿出來擠到向量去，裡面的數字才能計算
+typeof(vvv)
+
+#常態分配圖
+```{r}
+x <- rnorm(200,5,2)
+h <- hist(x, breaks=20,
+          probability=T,
+          col="red", 
+          xlab="Miles Per Gallon", 
+          main="title")
+dx <- seq(-0,10,length=40)
+dy <- dnorm(dx,5,2)
+lines(dx, dy, t="l", col="green", lwd="4")
+```
+
+
+```{r}
+N <-400  
+sm <-5 #平均數
+ss <-2 #標準差
+data <- rnorm(N,sm,ss)
+h <- hist(x, breaks=20,
+          probability=T,
+          col="red", 
+          xlab="Miles Per Gallon", 
+          main="title")
+dx <- seq(sm-ss*3, sm+ss*3, length=40)  #標準常態分配
+dy <- dnorm(dx, sm, ss)
+lines(dx, dy, t="l", col="red")
+```
+
+```{r}
+N <-400
+sm <-5          #平均數
+ss <-2          #標準差
+n <- 300        #母體抽樣，產生300個平均值記錄下來(抽的次數)
+ee <- double(n) #事先弄n個大小的空間給ee
+
+for (i in 1:n){
+  data <- rnorm(N,sm,ss)
+  ee[i] <- mean(data)
+}
+```
+
+```{r}
+h <- hist(ee, breaks=20,
+          probability=T,
+          col="red", 
+          xlab="Miles Per Gallon", 
+          main="title")
+
+dx <- seq(sm-ss*3, sm+ss*3, length=40)  
+dy <- dnorm(dx, sm, ss)
+
+#lines(dx, dy, t="l", col="green", lwd="4")
+qx <- quantile(ee) #找出ee的quantile(max,min,...,etc)
+rug(qx)            #將quantile畫到x軸
+
+#抽樣分配ee的se=ss/sqrt(N)-淺色|
+```
+
+
+
+
+
+
+
