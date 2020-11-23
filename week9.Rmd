@@ -1,0 +1,155 @@
+---
+title: "week9"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 簡單:用x,y軸畫cdf
+```{r}
+z_scores <- seq(-3, 3, by=.1) #x軸
+pvalues <- pnorm(z_scores) #pnorm是畫cdf，值從0~1=>y軸
+plot(z_scores,pvalues, type="l",
+     ylab="Probability",
+     xaxt="n",
+     main="CDF")  #畫cdf
+```
+## 進階.用y軸畫cdf，對應到cdf，找oo[]個數
+
+```{r}
+z_scores <- seq(-3, 3, by=.1) #x軸
+pvalues <- pnorm(z_scores) #pnorm是畫cdf，值從0~1=>y軸
+plot(pvalues, type="l",xaxt="n")  
+
+oo <- rep(F,length(z_scores))  
+#rep() 函數可以生成重複變數的向量，共產生length(z_scores)個False
+
+oo[10] <- T  #將第10個改成T
+#oo[50] <- T
+
+axis(1, at=which(oo), label="this") #找到第10個#1是定位在下面
+
+```
+
+## 進階.用y軸畫cdf，對應到cdf，找0.2
+```{r}
+yy <- seq(0,1,length=100)
+yy <- yy[c(-1,-100)]   #因為第1個和第100個是-+Inf
+z_scores <- qnorm(yy)  #利用yy找z_scores機率值反找回去
+pvalues <- pnorm(z_scores)
+plot(z_scores,pvalues, type="l",
+     xlab="z-scores",
+     ylab="Probability",
+     xaxt="n",            #不畫x軸座標點
+     main="CDF")
+axis(1, at=which(round(pvalues,2) == 0.2), labels = round(qnorm(0.2),2))
+
+#找p-values=0.2對下來的點，用round取小數兩位 #which要用兩個=
+#y軸哪一個值會等於pnorm(-2)/qnorm是pnorm的反函數(可以用來反查)
+```
+
+```{r}
+uu <- seq(0,1,length=100)
+z_scores <- qnorm(uu)
+z_scores[3] <-NA
+which(z_scores==Inf)
+which(z_scores==-Inf)
+which(z_scores==-NA)
+NA=NA
+NA=Inf
+
+#清資料方法1
+is.na(z_scores) 
+whcih(is.na(z_scores)) #找
+cleandta <-z_scores[whcih(!is.na(z_scores))] #刪除
+
+#清資料方法2
+c1 <- z_scores[whcih(!is.na(z_scores))] #找
+c2 <- z_scores[!is.na(z_scores)] #刪除
+```
+簡單版:做方程式，方便之後呼叫
+```{r}
+x3 <- function(arg1,arg2,arg3){
+  rst<-arg1*arg2*arg3
+  return(rst)
+}
+
+x3(2,3,1)
+```
+
+
+#標準差佔的信賴區間，百分比=?
+zscore=1，1個標準差
+```{r}
+right <- pnorm(1)
+left <- pnorm(-1)
+right-left
+```
+
+zscore=2，2個標準差
+```{r}
+right <- pnorm(2)
+left <- pnorm(-2)
+right-left
+```
+
+做成方程式，方便之後呼叫
+```{r}
+persentbysd <- function(sd){
+right <- pnorm(sd)
+left <- pnorm(-sd)
+return(right-left)
+}
+
+persentbysd(1)
+persentbysd(2)
+```
+
+#我要寫一個函數，用來過濾-2到2之間的值
+```{r}
+myfilter <- function(x,min,max){
+  rst <- x<=max  #<=2
+  le2 <-x[rst]
+  rst2 <- le2 >=min #>=-2
+  xx <- le2[rst2]
+  return(xx)
+}
+
+x <-rnorm(10) #隨機10個亂數
+myfilter(x,-0.2,0.2)
+```
+#簡略
+```{r}
+myfilter <- function(x,min,max){
+  le2 <-x[x<=max]
+  xx <- le2[le2 >=min]
+  return(xx)
+}
+
+x <-rnorm(10)
+myfilter(x,-0.2,0.2)
+```
+```{r}
+x <-rpois(30,5)  
+#產生n個二項分佈的隨機亂數：rpois(n,lambda)卜瓦松
+#寫一個函數要找出來偶數
+x[x%%2==0]
+
+```
+5%%2  #奇數跑1
+66%%2 #偶數跑0
+
+```{r}
+x <-rpois(30,5)  
+#產生n個二項分佈的隨機亂數：rpois(n,lambda)
+#從卜瓦松平均5，抽30個
+#寫一個函數要找出來偶數
+
+myfunction <- function(v){
+  return(v[v%%2==0])
+}
+x
+myfunction(x)
+```
