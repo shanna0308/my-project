@@ -1,0 +1,122 @@
+---
+title: "week11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+mm <- function(rcnt, ccnt, init){
+  total <- rcnt*ccnt
+  v <- double(total)
+  v[1:total] <-init+2
+  rst <- matrix(v,rcnt,ccnt)
+  return(rst)
+}
+```
+
+```{r}
+mm(3,6,1) #3*6填入1
+```
+
+#比較直接在下方console輸入mm(3,6,1)，答案會不同(要按照順序打下來)
+
+## R Markdown
+先在r script建立function
+r markdown每次都會重新session，要用source的方式，每次讓他讀
+```{r}
+source("mm.R")
+```
+
+```{r}
+mm(3,6,1) #3*6填入1
+mm(4,4,runif(1)) #4*4填入隨機亂數
+```
+
+x1 <- c(1,2,3)
+m1 <- matrix(x1,1,3) #將c轉為1列3欄矩陣
+m2 <- matrix(x1,3,1) #將c轉為3列1欄矩陣
+
+source("mm.R") #session:r studio connect to R server
+
+:question1，下面三個向量變成一個list
+a <- runif(3)
+b <- runif(3)
+c <- runif(3)
+
+abc <- list(a,b,c) #list
+length(abc) #3個
+
+xx <- c(a,b,c) #向量
+length(xx) #9個
+
+:question2，裡面有幾個元素大於0.5
+
+```{r}
+xx <- function(x){
+    return(length(x[x>0.5]))
+}
+xx(runif(10))
+```
+
+```{r}
+x1 <- list(c("a","b"), c("c","d"))
+x <- x1[[1]]
+typeof(x)
+for(item in x){
+  print(item)
+}
+print("----------")
+x <- x1[1]
+typeof(x)
+for(item in x){
+  print(item)
+}
+```
+
+x <- c(1,2,3)
+x[1]
+原來是向量(e.g., x)，拿到的元素x[1]也是向量
+
+y <- list(1,2,3)
+y[1]
+原來是list(e.g., y)，拿到的元素y[1]也是list
+既然拿到的是LIST，那要拿到真正的內容必須[[]]
+
+##paste函數用法
+"x"+"y"            #r做不到
+paste0("x","y")    #中間無空格(字串相加)
+paste("x","y")     #中間有空格
+
+paste("a","b","c",sep="\t")
+
+paste("a","b","c") == paste("a","b","c",sep=" ")
+
+paste(c("a","b","c"),sep="\t",collapse="\t")
+paste(c("a","b","c"),sep="\t",collapse=" ") #collapse:將向量c()攤開
+
+
+#dir()
+#dir.create("xx") 子目錄下新建資料夾xx
+#getwd()
+
+:question: 寫一個函數，確認目前的子目錄中，有沒有一個檔案叫做"xx.txt"
+
+dir()
+
+```{r}
+myf1 <- function(afile){
+ file <-dir()
+ rst <- length(file[file==afile])
+ return(rst>0)
+}
+myf1("xx.txt")
+```
+
+
+
+
+
+
