@@ -114,9 +114,11 @@ myf1 <- function(afile){
 }
 myf1("xx.txt")
 ```
-
- 
-  
-
-
+拆解:
+afile<-"xx"
+all<-dir()
+all
+all[all==afile] #character(0) 用length找會=0
+afile<-"xx.txt"
+all[all==afile] #找到，用length找會=1(找到一個的意思)
 
