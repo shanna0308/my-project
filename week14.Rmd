@@ -1,0 +1,65 @@
+---
+title: "week14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+install.packages("DT")
+
+```{r}
+library(DT)
+fm <- read.csv(file="c:/temp/wh.csv", header=T, comment.char="#", as.is=T)
+fm$weight <- as.numeric(fm$weight)
+fm$ratio <- fm$height/fm$weight
+```
+
+```{r}
+library(DT)
+ms <- installed.packages()
+#View(ms)        #V大寫
+#datatable(ms)
+fm <- data.frame(ms)
+
+#1
+col1 <- fm$Package
+col2 <- fm$LibPath
+col3 <- fm$Version
+fm3 <- data.frame(col1,col2,col3)
+colnames(fm3) <- c("套件", "路徑", "版本")
+datatable(fm3, rownames = F)
+write.csv(fm3, file = "c:/temp/week6/foo.csv", row.names = F)
+#輸出成csv檔，檔名foo
+
+#2
+fm3 <- fm[,1:3]
+```
+```{r}
+fm4 <- read.csv(file="c:/temp/week6/foo.csv", header=T, comment.char="#", as.is=T)
+datatable(fm4)
+str(fm4$版本)
+
+fm5<- fm4[order(fm4$版本),] #依據版本排序
+datatable(fm5)
+#head(fm5)
+```
+
+```{r}
+x=c(3,2,1) #排序範例
+order(x)
+
+x=c(5,8,3)
+order(x)
+
+y <- x[order(x)]
+
+#矩陣排序
+matrix(c(1,2,9,3,5,9,1,2),2,4)
+mm <- matrix(c(1,2,9,3,5,9,1,2),2,4)
+mm[order(mm[,2]),]
+```
+

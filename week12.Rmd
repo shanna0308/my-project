@@ -1,0 +1,38 @@
+---
+title: "week12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+mydata<-read.csv(file = "trees911.csv", encoding="UTF-8")
+
+mydata$C <-factor(mydata$C)
+mydata$N <- factor(mydata$N)
+summary(mydata)
+
+table(mydata$C)
+barplot(table(mydata$C))
+```
+
+
+```{r}
+mydata1<-read.csv("trees911.csv",encoding="UTF-8")
+mydata$`哈哈` <-factor(mydata1$`哈哈`)
+
+table(mydata1$`哈哈`)
+```
+```{r}
+paste0("a","b") # "a+b" = "a`sep`b" ,sep=""
+paste0("a","b",collapse="-----")
+paste0(c("a","b"),c(1,2))
+paste0(c("a","b"),c(1,2),collaspe="<--->")
+print("----------")
+paste("a","b") # "a"+"b" = "a`sep`b"
+```
+
