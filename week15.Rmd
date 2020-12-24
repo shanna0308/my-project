@@ -1,0 +1,96 @@
+---
+title: "week15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+install.packages("AER")
+install.packages("DT")
+
+
+```{r}
+library("AER")
+data("Journals", package = "AER")
+#View(Journals)
+
+journals <- Journals[, c("subs","price")] #subs訂閱
+#View(journals)
+
+journals$citeprice <- Journals$price/Journals$citation #citation 引用次數
+summary(journals)
+
+#lm(journals$subs~journals$citeprice) #價格有負的，所以要調整
+#lm(subs~citeprice, data=journals)  #上下兩種方法，結果相同
+mm <- lm(subs~citeprice, data=journals)
+
+class(mm)
+names(mm)
+mm$coefficients #訂閱次數越低，圖書館越要購買，呈現負相關
+```
+
+```{r}
+mm <- lm(subs~citeprice, data=journals)
+mm1 <- lm(log(subs)~log(citeprice), data=journals)
+#用log使資料趨近於常態分配#y軸~X軸
+plot(mm)  #未轉log
+plot(mm1) #已轉log
+
+#mm$model
+```
+```{r}
+plot(log(subs)~log(citeprice), data=journals) #用log使資料趨近於常態分配#y軸~X軸
+jour_lm <- lm(log(subs)~log(citeprice), data=journals)
+abline(jour_lm)
+```
+
+jour_lm <- lm(subs~persentation)
+subs~beta0(intercept) beta1*citeprice
+h0: beta1=-0.5
+
+
+```{r}
+Journals <- read.csv("Journals.csv")
+journals <- Journals[, c("subs","price")] 
+journals$citeprice <- Journals$price/Journals$citation
+journals$lsubs <- log(journals$subs)
+journals$lciteprice <- log(journals$citeprice)
+
+plot(lsubs~lciteprice, data=journals)
+jour_lm <- lm(lsubs~lciteprice, data=journals)
+abline(jour_lm)
+anova(jour_lm)
+linearHypothesis(jour_lm, "lciteprice=-0.5")
+
+```
+
+```{r}
+coef(jour_lm)
+confint(jour_lm, level = 0.95)
+```
+
+```{r}
+predict(jour_lm, newdata = data.frame(lciteprice=c(2.11,3), interval = "confidence")) #兩個#confidence:除以根號個數的信賴區間
+
+predict(jour_lm, newdata = data.frame(lciteprice=c(2.11,3), interval = "prediction")) #兩個#confidence:沒有除以根號個數的信賴區間#有加了殘差的(我們常用的)
+```
+
+```{r}
+mydata <- seq(from = -4, to = 2, by = 0.25)
+jour_pred <- predict(jour_lm, interval = "prediction",
+  newdata = data.frame(lciteprice =mydata))  
+plot(lsubs~ lciteprice, data = journals)
+lines(jour_pred[, 1] ~ mydata, col = 1)    
+lines(jour_pred[, 2] ~ mydata, col = 1, lty = 2)
+lines(jour_pred[, 3] ~ mydata, col = 1, lty = 2)
+```
+
+data(cars)
+names(cars)
+summary(cars)
+
+Q:問dist=130時，speed=?
